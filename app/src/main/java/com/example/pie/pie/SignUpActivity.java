@@ -34,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
         //auth
         mAuth = FirebaseAuth.getInstance();
 
+        setComponents();
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,22 +75,14 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void getSignUpComponents() {
+        emailSignUp = emailSignUpEditText.getText().toString().trim();
+        passwordSignUp = passwordSignUpEditText.getText().toString().trim();
+    }
+
+    private void setComponents() {
         emailSignUpEditText = findViewById(R.id.emailSignUpText);
         passwordSignUpEditText = findViewById(R.id.passwordSignUpText);
         signUpBtn = findViewById(R.id.signUpBtn);
-
-        emailSignUpEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailSignUpEditText.setText("");
-            }
-        });
-        if (!emailSignUpEditText.hasFocus()) {
-            emailSignUp = emailSignUpEditText.getText().toString().trim();
-        }
-        if (!passwordSignUpEditText.hasFocus()) {
-            passwordSignUp = passwordSignUpEditText.getText().toString().trim();
-        }
     }
 
 }
