@@ -37,8 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                initiateLogin(emailLoginEditText.getText().toString().trim(),
-//                        passwordLoginEditText.getText().toString().trim());
+                getLoginComponents();
                 initiateLogin(emailLoginText, passwordLoginText);
             }
         });
