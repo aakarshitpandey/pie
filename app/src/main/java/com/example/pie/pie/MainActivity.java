@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onStart() {
+        Auth auth = new Auth();
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
 // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 //        updateUI(account); //TODO
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = auth.currentUser();
 //        updateUI(currentUser); //TODO
     }
 }
