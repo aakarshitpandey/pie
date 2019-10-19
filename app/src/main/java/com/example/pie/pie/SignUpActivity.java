@@ -12,6 +12,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText emailSignUpEditText;
     private EditText passwordSignUpEditText;
     private Button signUpBtn;
+    private String emailSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +28,22 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void initiateSignUp() {
-
     }
 
     private void getSignUpComponents() {
         emailSignUpEditText = findViewById(R.id.emailSignUpText);
         passwordSignUpEditText = findViewById(R.id.passwordSignUpText);
         signUpBtn = findViewById(R.id.signUpBtn);
+
+        emailSignUpEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emailSignUpEditText.setText("");
+            }
+        });
+        if (!emailSignUpEditText.hasFocus()) {
+            emailSignUp = emailSignUpEditText.getText().toString();
+        }
     }
 
 }
