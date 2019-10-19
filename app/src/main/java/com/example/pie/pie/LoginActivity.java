@@ -22,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordLoginEditText;
     private Button loginButton;
     private FirebaseAuth mAuth;
+    private String emailLoginText;
+    private String passwordLoginText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initiateLogin(emailLoginEditText.getText().toString().trim(),
-                        passwordLoginEditText.getText().toString().trim());
+//                initiateLogin(emailLoginEditText.getText().toString().trim(),
+//                        passwordLoginEditText.getText().toString().trim());
+                initiateLogin(emailLoginText, passwordLoginText);
             }
         });
 
@@ -40,12 +43,40 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser); //user already signed in
+    }
+
+    private void getLoginComponents() {
+        emailLoginEditText = findViewById(R.id.emailTextView);
+        passwordLoginEditText = findViewById(R.id.passwordTextView);
+        loginButton = findViewById(R.id.loginBtn);
+
+        emailLoginEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emailLoginEditText.setText("");
+            }
+        });
+        if (!emailLoginEditText.hasFocus()) {
+            emailLoginText = emailLoginEditText.getText().toString().trim();
+        }
+
+        passwordLoginEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passwordLoginEditText.setText("");
+            }
+        });
+        if (!passwordLoginEditText.hasFocus()) {
+            passwordLoginText = passwordLoginEditText.getText().toString().trim();
+        }
+
     }
 
     private void initiateLogin(String email, String password) {
