@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.widget.Button;
 
 public class LoginActivity extends AppCompatActivity {
-    private String usernameText;
-    private String passwordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
