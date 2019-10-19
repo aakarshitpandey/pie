@@ -28,6 +28,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setComponents();
+
+        //auth
+        mAuth = FirebaseAuth.getInstance();
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,9 +39,6 @@ public class LoginActivity extends AppCompatActivity {
                         passwordLoginEditText.getText().toString().trim());
             }
         });
-
-        //auth
-        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -49,21 +50,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initiateLogin(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("SUCCESS", "createUserWithEmail:success");
+                            Log.d("Success", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user); //redirect to the dashboard
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-//                            Log.w("createUserWithEmail:failure", task.getException());
+                            Log.w("Error", "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null); //authentication failed
+                            updateUI(null);
                         }
                         // ...
                     }
