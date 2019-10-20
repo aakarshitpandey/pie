@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.d("User already logged in", "changing to dashboard activity");
         updateUI(currentUser); //user already signed in
     }
 
@@ -76,7 +77,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            Intent intent = new Intent(getBaseContext(), DashboardActivity.class);
+            String email = currentUser.getEmail();
+            if (email != null) {
+                intent.putExtra("username", email.substring(0, email.indexOf("@")));
+            } else {
+                intent.putExtra("username", "Stranger!");
+            }
             startActivity(intent);
         }
     }
