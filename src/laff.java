@@ -2,9 +2,12 @@ import java.util.List;
 
 public class laff {
 
-    public void dolaff(Box main, List<Box> boxes) {
-        Box free = Box.newBox(main);
+    public void dolaff(Storage main, List<Box> boxes) {
+        //creating the free space object
+        Dim free = new Dim(main);
+
         while (!boxes.isEmpty()) {
+            //get the box with the best height
             int index = bestfit(boxes, main, free);
 
             //best fit doesn't exist or level is full
@@ -13,14 +16,20 @@ public class laff {
             }
 
             Box currBox = boxes.get(index);
-            //TODO: create a level object that contains a list of objects as well as the dimensions for that level
-            //TODO: remove volume of level from free-space
 
+            //once the height and length and width of a level's space have been fixed, find the best boxes for that
+            //TODO: fit within a level space
+
+            //add a new level
+            main.addLevel();
+
+            //change the available free space
+            free = new Dim(free.getLength(), free.getWidth(), main.getFreeheight());
         }
     }
 
     //returns the index of the box with the best fit
-    public int bestfit(List<Box> boxes, Box main, Box free) {
+    public int bestfit(List<Box> boxes, Storage main, Dim free) {
         int index = -1;
         boolean fullLev = false;
         //iterating through all the boxes and getting the best fit with respect to SA
@@ -40,7 +49,7 @@ public class laff {
                         //check if the height of the object is equal to the height of the free space in the box
                         if (b.getHeight() == free.getHeight()) {
                             //check if the current SA fits the constraints of the free space
-                            if (b.currArea() < free.currArea()) { //TODO: should it be b.currArea() or boxes.get(index).currArea()?
+                            if (boxes.get(index).currArea() < b.currArea()) {
                                 //the box fits and can be added unless there is a better fit
                                 index = i;
                             }
@@ -52,10 +61,10 @@ public class laff {
                             index = i;
                         } else {
                             //setting the to-be-added box to a new box as it is a better fit height-wise
-                            if (boxes.get(index).getHeight() < free.getHeight()) {
+                            if (boxes.get(index).getHeight() < b.getHeight()) {
                                 index = i;
-                            } else if (boxes.get(index).getHeight() == free.getHeight() &&
-                                        boxes.get(index).currArea() < free.currArea()) { //TODO: less than equal?
+                            } else if (boxes.get(index).getHeight() == b.getHeight() &&
+                                        boxes.get(index).currArea() < b.currArea()) {
                                 //setting the to-be-added box to a new box as it is a better fit SA-wise given the height
                                 index = i;
                             }

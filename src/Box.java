@@ -40,13 +40,17 @@ public class Box {
     }
 
     //rotates the box object in 3D
-    public Box rotate3D() {
+    public void rotate3D() {
         double l = this.length;
         this.length = this.height;
         this.height = this.width;
         this.width = l;
+    }
 
-        return this;
+    public void rotate2D() {
+        double l = this.length;
+        this.length = this.width;
+        this.width = l;
     }
 
     //returns the volume of the box
@@ -93,7 +97,15 @@ public class Box {
             rotate3D();
         }
 
-        //TODO: check if 2D orientation needs to change
+        //Once rotated appropriately, check if the w and l are fit the constraints
+        if (w < this.width || l < this.length) {
+            rotate2D();
+
+            //check if the newly rotated dimensions still fit within the constraints
+            if (w < this.width || l < this.length) {
+                //TODO: return an exception
+            }
+        }
         return true;
     }
 
