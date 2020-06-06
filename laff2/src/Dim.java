@@ -106,7 +106,7 @@ public class Dim {
     /*
      * check if the box fits in the given dim without rotation
      */
-    public boolean fitsInside3D(Dim dim) {
+    public boolean fitsIn3D(Dim dim) {
         return dim.getWidth() >= width && dim.getLength() >= length && dim.getHeight() >= height;
     }
 
@@ -141,14 +141,14 @@ public class Dim {
     /*
      * check if the current box/dim fits in at least one orientation in a specified dim/free space
      */
-    public boolean canFitInside3D(Dim dim) {
+    public boolean canFitIn3D(Dim dim) {
         return dim.canHold3D(this);
     }
 
     /*
      * check if the current box/dimesnsion can fit in the given free dim in one of the 2-d orientations
      */
-    public boolean canFitInside2D(Dim dim) {
+    public boolean canFitIn2D(Dim dim) {
         return dim.canHold2D(this);
     }
 

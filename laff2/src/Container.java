@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class Container extends Box {
 
-    protected double stackHeight = 0;
+    protected double levelHeight = 0;
     protected ArrayList<Level> levels = new ArrayList<>();
 
     //constructors
@@ -96,7 +96,7 @@ public class Container extends Box {
 
     public boolean add(Level element) {
         if(!levels.isEmpty()) {
-            stackHeight += currentLevelStackHeight();
+            levelHeight += currentLevelHeight();
         }
 
         return levels.add(element);
@@ -109,12 +109,12 @@ public class Container extends Box {
         return null;
     }
 
-    public double getStackHeight() {
-        return stackHeight + currentLevelStackHeight();
+    public double getLevelHeight() {
+        return levelHeight + currentLevelHeight();
     }
 
 
-    private double currentLevelStackHeight() {
+    private double currentLevelHeight() {
         if(levels.isEmpty()) {
             return 0;
         }
@@ -137,8 +137,8 @@ public class Container extends Box {
      *
      * returns a dimension with the free height and box dimension
      */
-    public Dim getFreeLevelSpace() {
-        double remainder = height - getStackHeight();
+    public Dim getFreeLevSpace() {
+        double remainder = height - getLevelHeight();
         if(remainder < 0) {
             throw new IllegalArgumentException("Remaining free space is negative at " + remainder + " for " + this);
         }
@@ -155,13 +155,13 @@ public class Container extends Box {
     }
 
     // keep method for tests
-    public void validateCurrentLevel() {
+    public void checkCurrLevel() {
         levels.get(levels.size() - 1).validate();
     }
 
     public void clear() {
         levels.clear();
-        stackHeight = 0;
+        levelHeight = 0;
     }
 
     /*
@@ -183,14 +183,14 @@ public class Container extends Box {
                 return false;
         } else if (!levels.equals(other.levels))
             return false;
-        if (stackHeight != other.stackHeight)
+        if (levelHeight != other.levelHeight)
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Container [stackHeight=" + stackHeight + ", levels=" + levels
+        return "Container [levelHeight=" + levelHeight + ", levels=" + levels
                 + ", width=" + width + ", length=" + length + ", height=" + height + ", volume="
                 + volume + ", name=" + name + "]";
     }
