@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * It contains all the boxes within the arraylist of placements i.e positions of the boxes within the level
  */
 
-public class Level extends ArrayList<Placement> {
+public class Level extends ArrayList<Position> {
 
 
     private static final long serialVersionUID = 1L;
@@ -16,8 +16,8 @@ public class Level extends ArrayList<Placement> {
     public double getHeight() {
         double height = 0;
 
-        for(Placement placement : this) {
-            Box box = placement.getBox();
+        for(Position position : this) {
+            Box box = position.getBox();
             if(box.getHeight() > height) {
                 height = box.getHeight();
             }

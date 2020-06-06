@@ -3,18 +3,18 @@
  * The space usually refers to the free space within a particular level
  */
 
-public class Placement {
+public class Position {
 
     private Space space;
     private Box box;
 
     //constructors
-    public Placement(Space space, Box box) {
+    public Position(Space space, Box box) {
         this.space = space;
         this.box = box;
     }
 
-    public Placement(Space space) {
+    public Position(Space space) {
         this.space = space;
     }
 
@@ -44,9 +44,9 @@ public class Placement {
         return (space.getZ() + box.getHeight()) / 2;
     }
 
-    //checks for when the current placement intersects a specified placement. Same as with the space
-    boolean intersects(Placement placement) {
-        return intersectsX(placement) && intersectsY(placement) && intersectsZ(placement);
+    //checks for when the current position intersects a specified position. Same as with the space
+    boolean intersects(Position position) {
+        return intersectsX(position) && intersectsY(position) && intersectsZ(position);
     }
 
     boolean isbetween(double start, double end, double pos) {
@@ -56,37 +56,37 @@ public class Placement {
         return false;
     }
 
-    public boolean intersectsX(Placement placement) {
+    public boolean intersectsX(Position position) {
 
         double startX = space.getX();
         double endX = startX + box.getWidth() - 1;
 
-        return isbetween(startX, endX, placement.getSpace().getX()) ||
-                isbetween(startX, endX, (placement.getSpace().getX() + placement.getBox().getWidth() - 1));
+        return isbetween(startX, endX, position.getSpace().getX()) ||
+                isbetween(startX, endX, (position.getSpace().getX() + position.getBox().getWidth() - 1));
 
     }
 
-    public boolean intersectsY(Placement placement) {
+    public boolean intersectsY(Position position) {
 
         double startY = space.getY();
         double endY = startY + box.getLength() - 1;
 
-        return isbetween(startY, endY, placement.getSpace().getY()) ||
-                isbetween(startY, endY, (placement.getSpace().getY() + placement.getBox().getLength() - 1));
+        return isbetween(startY, endY, position.getSpace().getY()) ||
+                isbetween(startY, endY, (position.getSpace().getY() + position.getBox().getLength() - 1));
     }
 
-    public boolean intersectsZ(Placement placement) {
+    public boolean intersectsZ(Position position) {
 
         double startZ = space.getZ();
         double endZ = startZ + box.getHeight() - 1;
 
-        return isbetween(startZ, endZ, placement.getSpace().getZ()) ||
-                isbetween(startZ, endZ, (placement.getSpace().getZ() + placement.getBox().getHeight() - 1));
+        return isbetween(startZ, endZ, position.getSpace().getZ()) ||
+                isbetween(startZ, endZ, (position.getSpace().getZ() + position.getBox().getHeight() - 1));
     }
 
     @Override
     public String toString() {
-        return "Placement [" + box.getName() + " " + space.getX() + "x" + space.getY() + "x" + space.getZ() +
+        return "Position [" + box.getName() + " " + space.getX() + "x" + space.getY() + "x" + space.getZ() +
                 ", width=" + box.getWidth() + ", depth=" + box.getLength() + ", height="
                 + box.getHeight() + "]";
     }

@@ -3,7 +3,7 @@
  * This is also an abstraction for the biggest container used to store all the objects
  */
 
-public class Box extends Dimension {
+public class Box extends Dim {
 
     //constructor
     public Box(double w, double l, double h) {
@@ -15,8 +15,8 @@ public class Box extends Dimension {
         super(name, w, l, h);
     }
 
-    public Box(final Dimension dimension) {
-        this(dimension.width, dimension.length, dimension.height);
+    public Box(final Dim dim) {
+        this(dim.width, dim.length, dim.height);
     }
 
     /*
@@ -75,9 +75,9 @@ public class Box extends Dimension {
     /*
      * returns the current surface area of the main face i.e l * w
      */
-    double currentSurfaceArea() {
-        return width * length;
-    }
+//    double currentSurfaceArea() {
+//        return width * length;
+//    }
 
     public Box clone() {
         return new Box(name, width, length, height);
@@ -85,13 +85,13 @@ public class Box extends Dimension {
 
 
     /*
-     * rotate the box in 2-d and check whether it fits in a particular dimension's constraints
+     * rotate the box in 2-d and check whether it fits in a particular dim's constraints
      */
-    boolean fitRotate2D(Dimension dimension) {
-        if (dimension.getHeight() < height) {
+    boolean fitRotate2D(Dim dim) {
+        if (dim.getHeight() < height) {
             return false;
         }
-        return fitRotate2D(dimension.getWidth(), dimension.getLength());
+        return fitRotate2D(dim.getWidth(), dim.getLength());
     }
 
     /*
@@ -125,13 +125,13 @@ public class Box extends Dimension {
     }
 
     /*
-     * rotate the box to the orientation with the largest surface area in a given dimension.
+     * rotate the box to the orientation with the largest surface area in a given dim.
      * Helpful when finidng the best box with largest height for inital level
      */
-    boolean rotateLargestFootprint3D(Dimension dimension) {
-        double w = dimension.getWidth();
-        double l = dimension.getLength();
-        double h = dimension.getHeight();
+    boolean rotateLargestSA3D(Dim dim) {
+        double w = dim.getWidth();
+        double l = dim.getLength();
+        double h = dim.getHeight();
 
         double a = Integer.MIN_VALUE;
         if (fitsWidthAndLengthDown(w, l, h)) {
@@ -181,14 +181,14 @@ public class Box extends Dimension {
     }
 
     /*
-     * rotate the box to the orientation with the smallest surface area in a given dimension
+     * rotate the box to the orientation with the smallest surface area in a given dim
      * Best for when fitting the smallest and most number of boxes within the free space in a level
      */
-    boolean fitRotate3DSmallestFootprint(Dimension dimension) {
+    boolean fitRotate3DSmallestFootprint(Dim dim) {
         //return fitRotate3DSmallestFootprint(space.getWidth(), space.getLength(), space.getHeight());
-        double w = dimension.getWidth();
-        double l = dimension.getLength();
-        double h = dimension.getHeight();
+        double w = dim.getWidth();
+        double l = dim.getLength();
+        double h = dim.getHeight();
 
         double a = Integer.MAX_VALUE;
         if (fitsWidthAndLengthDown(w, l, h)) {

@@ -3,7 +3,7 @@
  * Also has a particular volume
  */
 
-public class Dimension {
+public class Dim {
 
     //using protected becuase want these variables to be accessible in subclasses
     protected double width; // x
@@ -16,11 +16,11 @@ public class Dimension {
     /*
      * constructors: default + parameters
      */
-    public Dimension() {
+    public Dim() {
         this.name = null;
     }
 
-    public Dimension(String name, double w, double l, double h) {
+    public Dim(String name, double w, double l, double h) {
         this.name = name;
 
         this.length = l;
@@ -29,15 +29,15 @@ public class Dimension {
         calculateVolume();
     }
 
-    public Dimension(double w, double l, double h) {
+    public Dim(double w, double l, double h) {
         this(null, w, l, h);
     }
 
     /*
      * create a new dimension with specified dimensions rather than a constructor with a nmae
      */
-    public static Dimension newInstance(double width, double depth, double height) {
-        return new Dimension(width, depth, height);
+    public static Dim newInstance(double width, double depth, double height) {
+        return new Dim(width, depth, height);
     }
 
     /*
@@ -104,19 +104,19 @@ public class Dimension {
     }
 
     /*
-     * check if the box fits in the given dimension without rotation
+     * check if the box fits in the given dim without rotation
      */
-    public boolean fitsInside3D(Dimension dimension) {
-        return dimension.getWidth() >= width && dimension.getLength() >= length && dimension.getHeight() >= height;
+    public boolean fitsInside3D(Dim dim) {
+        return dim.getWidth() >= width && dim.getLength() >= length && dim.getHeight() >= height;
     }
 
     /*
-     * check if the given dimension fits in at least one 3-d orientation in this dimension
+     * check if the given dim fits in at least one 3-d orientation in this dim
      */
-    public boolean canHold3D(Dimension dimension) {
-        double w = dimension.getWidth();
-        double l = dimension.getLength();
-        double h = dimension.getHeight();
+    public boolean canHold3D(Dim dim) {
+        double w = dim.getWidth();
+        double l = dim.getLength();
+        double h = dim.getHeight();
 
         return (w <= width && h <= height && l <= length) ||
                 (h <= width && l <= height && w <= length) ||
@@ -128,33 +128,33 @@ public class Dimension {
 
 
     /*
-     * check if the given dimension fits in at least one 2-d orientation in this dimension
+     * check if the given dim fits in at least one 2-d orientation in this dim
      */
-    public boolean canHold2D(Dimension dimension) {
-        if(dimension.getHeight() > height) {
+    public boolean canHold2D(Dim dim) {
+        if(dim.getHeight() > height) {
             return false;
         }
-        return (dimension.getWidth() <= width && dimension.getLength() <= length) ||
-                (dimension.getLength() <= width && dimension.getWidth() <= length);
+        return (dim.getWidth() <= width && dim.getLength() <= length) ||
+                (dim.getLength() <= width && dim.getWidth() <= length);
     }
 
     /*
-     * check if the current box/dimension fits in at least one orientation in a specified dimension/free space
+     * check if the current box/dim fits in at least one orientation in a specified dim/free space
      */
-    public boolean canFitInside3D(Dimension dimension) {
-        return dimension.canHold3D(this);
+    public boolean canFitInside3D(Dim dim) {
+        return dim.canHold3D(this);
     }
 
     /*
-     * check if the current box/dimesnsion can fit in the given free dimension in one of the 2-d orientations
+     * check if the current box/dimesnsion can fit in the given free dim in one of the 2-d orientations
      */
-    public boolean canFitInside2D(Dimension dimension) {
-        return dimension.canHold2D(this);
+    public boolean canFitInside2D(Dim dim) {
+        return dim.canHold2D(this);
     }
 
     @Override
     public String toString() {
-        return "Dimension [width=" + width + ", length=" + length + ", height=" + height + ", volume=" + volume + "]";
+        return "Dim [width=" + width + ", length=" + length + ", height=" + height + ", volume=" + volume + "]";
     }
 
     @Override
@@ -165,7 +165,7 @@ public class Dimension {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Dimension other = (Dimension) obj;
+        Dim other = (Dim) obj;
         if (length != other.length)
             return false;
         if (height != other.height)

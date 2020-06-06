@@ -18,8 +18,8 @@ public class Container extends Box {
         super(container.getName(), container.getWidth(), container.getLength(), container.getHeight());
     }
 
-    public Container(Dimension dimension) {
-        super(dimension.getName(), dimension.getWidth(), dimension.getLength(), dimension.getHeight());
+    public Container(Dim dim) {
+        super(dim.getName(), dim.getWidth(), dim.getLength(), dim.getHeight());
     }
 
     public Container(double w, double l, double h) {
@@ -122,8 +122,8 @@ public class Container extends Box {
     }
 
 
-    public void add(Placement placement) {
-        levels.get(levels.size() - 1).add(placement);
+    public void add(Position position) {
+        levels.get(levels.size() - 1).add(position);
     }
 
     public Level addLevel() {
@@ -137,12 +137,12 @@ public class Container extends Box {
      *
      * returns a dimension with the free height and box dimension
      */
-    public Dimension getFreeLevelSpace() {
+    public Dim getFreeLevelSpace() {
         double remainder = height - getStackHeight();
         if(remainder < 0) {
             throw new IllegalArgumentException("Remaining free space is negative at " + remainder + " for " + this);
         }
-        return new Dimension(width, length, remainder);
+        return new Dim(width, length, remainder);
     }
 
 
@@ -150,7 +150,7 @@ public class Container extends Box {
         return levels;
     }
 
-    public Placement get(int level, int placement) {
+    public Position get(int level, int placement) {
         return levels.get(level).get(placement);
     }
 

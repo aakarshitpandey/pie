@@ -6,7 +6,7 @@ import java.util.List;
  */
 
 public class laff {
-    public int bestfitHeight(List<Box> boxes, Container container, Dimension free) {
+    public int bestfitHeight(List<Box> boxes, Container container, Dim free) {
         int index = -1;
         boolean fullLev = false;
         //iterating through all the boxes and getting the best fit with respect to SA

@@ -2,7 +2,7 @@
  * Represents the position, using coordinates, within a particular dimension
  */
 
-public class Space extends Dimension {
+public class Space extends Dim {
 
     private Space parent;
     private Space remainder; //free space available
@@ -122,25 +122,25 @@ public class Space extends Dimension {
         return intersects(startZ, endZ, z, height);
     }
 
-    public boolean intersects(Placement placement) {
-        return intersectsX(placement) && intersectsY(placement) && intersectsZ(placement);
+    public boolean intersects(Position position) {
+        return intersectsX(position) && intersectsY(position) && intersectsZ(position);
     }
 
-    public boolean intersectsX(Placement placement) {
-        double startX = placement.getSpace().getX();
-        double endX = startX + placement.getBox().getWidth() - 1;
+    public boolean intersectsX(Position position) {
+        double startX = position.getSpace().getX();
+        double endX = startX + position.getBox().getWidth() - 1;
         return intersects(startX, endX, x, width);
     }
 
-    public boolean intersectsY(Placement placement) {
-        double startY = placement.getSpace().getY();
-        double endY = startY + placement.getBox().getLength() - 1;
+    public boolean intersectsY(Position position) {
+        double startY = position.getSpace().getY();
+        double endY = startY + position.getBox().getLength() - 1;
         return intersects(startY, endY, y, length);
     }
 
-    public boolean intersectsZ(Placement placement) {
-        double startZ = placement.getSpace().getZ();
-        double endZ = startZ + placement.getBox().getHeight() - 1;
+    public boolean intersectsZ(Position position) {
+        double startZ = position.getSpace().getZ();
+        double endZ = startZ + position.getBox().getHeight() - 1;
         return intersects(startZ, endZ, z, height);
     }
 
@@ -148,8 +148,8 @@ public class Space extends Dimension {
      * To calculate the remainder space in a particular plane
      * Recalculate volume (of the free space) as it would have changed
      */
-    public void subtractX(Placement placement) {
-        double endX = placement.getSpace().getX() + placement.getBox().getWidth();
+    public void subtractX(Position position) {
+        double endX = position.getSpace().getX() + position.getBox().getWidth();
 
         if(endX > x) {
             width -= endX - x;
@@ -160,8 +160,8 @@ public class Space extends Dimension {
         }
     }
 
-    public void subtractY(Placement placement) {
-        double endY = placement.getSpace().getY() + placement.getBox().getLength();
+    public void subtractY(Position position) {
+        double endY = position.getSpace().getY() + position.getBox().getLength();
 
         if(endY > y) {
             length -= endY - y;
@@ -172,8 +172,8 @@ public class Space extends Dimension {
         }
     }
 
-    public void subtractZ(Placement placement) {
-        double endZ = placement.getSpace().getZ() + placement.getBox().getHeight();
+    public void subtractZ(Position position) {
+        double endZ = position.getSpace().getZ() + position.getBox().getHeight();
 
         if(endZ > z) {
             height -= endZ - z;
